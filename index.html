@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +9,78 @@
     <link rel="stylesheet" href="src/styles/app.css">
     <script src="src/scripts/app.js" defer async type="module"></script>
 </head>
+
 <body>
-    <div>
-        
-    </div>
+    <section class="calculator">
+        <div class="calculator_container">
+            <div class="calculator_box">
+                <h2 class="calculator_hdl">Calculate how much you'll pay</h2>
+                <div class="calculator_columns">
+                    <div class="calculator_column">
+                        <form action="">
+                            <div class="calculator_input">
+                                <input type="number" placeholder="Products quantity">
+                            </div>
+                            <div class="calculator_input">
+                                <input type="number" placeholder="Estimated orders in month">
+                            </div>
+                            <div class="calculator_select">
+                                <div class="calculator_input">Choose package</div>
+                                <ul class="select_options">
+                                    <li>Basic</li>
+                                    <li>Professional</li>
+                                    <li>Premium</li>
+                                </ul>
+                            </div>
+                            <div class="checkbox_box">
+                                <input type="checkbox" id="accounting">
+                                <label for="accounting">Accounting</label>
+                            </div>
+                            <div class="checkbox_box">
+                                <input type="checkbox" id="terminal">
+                                <label for="terminal">Rental of payment terminal</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="calculator_column">
+                        <div class="calculator_line">
+                            <span>Products</span>
+                            <span>20 * $0.5</span>
+                            <span>$10</span>
+                        </div>
+
+                        <div class="calculator_line">
+                            <span>Orders</span>
+                            <span>30 * $0.25</span>
+                            <span>$7.5</span>
+                        </div>
+
+                        <div class="calculator_line">
+                            <span>Package</span>
+                            <span>Premium</span>
+                            <span>$60</span>
+                        </div>
+
+                        <div class="calculator_line">
+                            <span>Accounting</span>
+                            <span>$35</span>
+                        </div>
+
+                        <div class="calculator_line">
+                            <span>Terminal</span>
+                            <span>$5</span>
+                        </div>
+
+                        <div class="total_line">
+                            <span>Total</span>
+                            <span>20 * $0.5</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>
