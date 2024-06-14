@@ -1,0 +1,76 @@
+html, body {
+    font-size: 16px;
+}
+.calculator {
+    width: 100%;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.calculator .calculator_container{
+max-width: 865px;
+background-color: lightblue;
+width: 100%;
+padding-inline: 1rem;
+padding-top: 86px;
+box-sizing: border-box;
+padding-bottom: 109px;
+}
+
+.calculator .calculator_container .calculator_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.calculator .calculator_container .calculator_box .calculator_hdl{
+    font-size: 36px;
+    padding-bottom: 52px;
+}
+
+.calculator .calculator_container .calculator_box .calculator_columns{
+    display: flex;
+    justify-content: center;
+}
+
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column{}
+
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input{
+    border: 1px solid blue;
+    border-radius: 10px;
+}
+
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input input{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+}
+
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+  margin: 0;
+}
+
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select{}
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select .select_options{
+    display: none
+}
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select .select_options .select_option{}
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select .input_package{
+    cursor: pointer;
+}
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .checkbox_box{
+    cursor: pointer;
+}
+
+
+
+
+.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_line{}
+
+
+

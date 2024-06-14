@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="src/styles/app.css">
+    <link rel="stylesheet" href="src/styles/reset.css">
     <script src="src/scripts/app.js" defer async type="module"></script>
 </head>
 
@@ -19,25 +20,25 @@
                     <div class="calculator_column">
                         <form action="">
                             <div class="calculator_input">
-                                <input type="number" placeholder="Products quantity">
+                                <input class="input_products" type="number" placeholder="Products quantity">
                             </div>
                             <div class="calculator_input">
-                                <input type="number" placeholder="Estimated orders in month">
+                                <input class="input_orders" type="number" placeholder="Estimated orders in month">
                             </div>
                             <div class="calculator_select">
-                                <div class="calculator_input">Choose package</div>
+                                <div class="input_package">Choose package</div>
                                 <ul class="select_options">
-                                    <li>Basic</li>
-                                    <li>Professional</li>
-                                    <li>Premium</li>
+                                    <li class="select_option">Basic</li>
+                                    <li class="select_option">Professional</li>
+                                    <li class="select_option">Premium</li>
                                 </ul>
                             </div>
                             <div class="checkbox_box">
-                                <input type="checkbox" id="accounting">
+                                <input class="checkbox" type="checkbox" id="accounting">
                                 <label for="accounting">Accounting</label>
                             </div>
                             <div class="checkbox_box">
-                                <input type="checkbox" id="terminal">
+                                <input class="checkbox" type="checkbox" id="terminal">
                                 <label for="terminal">Rental of payment terminal</label>
                             </div>
                         </form>
