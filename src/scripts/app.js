@@ -14,6 +14,7 @@ const packageOptions = [{
         name: 'products',
         price: 0.5,
         quanity: 0,
+        selected: false,
         total: function () {
             return this.price * this.quanity
         }
@@ -21,71 +22,101 @@ const packageOptions = [{
     {
         name: 'orders',
         price: 0.25,
-        quanity: inputOrdersQuantityRef.value,
+        quanity: 0,
+        selected: false,
         total: function () {
             return this.price * this.quanity
         }
     },
     {
         name: 'Basic',
-        price: '$20',
+        total: 20,
         selected: false
     },
     {
         name: 'Professional',
-        price: '$40',
+        total: 40,
         selected: false
     },
     {
         name: 'Premium',
-        price: '$60',
+        total: 60,
         selected: false
     },
     {
         name: 'Accounting',
-        price: '$35',
+        total: 35,
         selected: false
     },
     {
         name: 'Terminal',
-        price: '$5',
+        total: 5,
         selected: false
     },
 ]
+const calculateTotal = () => {
+    if (packageOptions.filter((option) => option.selected)) {
+        const total = packageOptions.filter((option) => option.selected).reduce((acc, curr) => acc + (curr.total instanceof Function ? curr.total() : curr.total), 0)
+        document.querySelector('.total_line').style.visibility = 'visible';
+        document.querySelector('.total_line').textContent = total
+    } else {
+        document.querySelector('.total_line').style.visibility = 'hidden';
+    }
+}
 
 inputProductsQuantityRef.addEventListener("change", () => {
-        const inputText = inputProductsQuantityRef.value;
-        console.log(inputText)
-        packageOptions[0].quanity = inputText;
-        numberProductLineRef.textContent = inputText;
-        const result = packageOptions[0].total();
-        productLineResultRef.textContent = result;
-        productLineRef.style.visibility = "visible"
-
-        if (!inputProductsQuantityRef.value) {
-            productLineRef.style.visibility = "hidden"
+    const inputText = inputProductsQuantityRef.value;
+    let result;
+    packageOptions.filter((option) => {
+        if (option.name === 'products') {
+            option.quanity = inputText
+            result = option.total()
+            option.selected = true
         }
+    })
+    numberProductLineRef.textContent = inputText;
+    productLineResultRef.textContent = result;
+    productLineRef.style.visibility = "visible"
+
+    if (!inputProductsQuantityRef.value) {
+        productLineRef.style.visibility = "hidden"
+        packageOptions.filter((option) => {
+            if (option.name === 'products') {
+                option.selected = false
+            }
+        })
+    }
+    calculateTotal()
 })
 
 inputOrdersQuantityRef.addEventListener("change", () => {
-    ordersLineRef.style.visibility = "hidden" ? ordersLineRef.style.display = "visible" : ordersLineRef.style.display = "hidden";
+    ordersLineRef.style.visibility = "visible";
     const inputText = inputOrdersQuantityRef.value;
+    let result;
+    packageOptions.filter((option) => {
+        if (option.name === 'orders') {
+            option.quanity = inputText
+            result = option.total()
+            option.selected = true
+        }
+    })
     numberOrderLineRef.textContent = inputText;
-    const result = inputText * 0.25
     orderLineResultRef.textContent = result;
+
+    if (!inputOrdersQuantityRef.value) {
+        ordersLineRef.style.visibility = "hidden";
+        packageOptions.filter((option) => {
+            if (option.name === 'orders') {
+                option.selected = false
+            }
+        })
+    }
+    calculateTotal();
 })
 
-
-// function getInputValue(inputSelector, outputSelector) {
-//     document.querySelector(inputSelector).addEventListener('change', () => {
-//         const inputUserText = document.querySelector(inputSelector).value;
-//         document.querySelector(outputSelector).textContent = inputUserText;
-//     })
-//     console.log('done');
-// }
-
-// getInputValue('.input_orders', '.order-line_number');
-
+function toogleDisplay(selector) {
+    document.querySelector('.selector').style.display === "none" ? document.querySelector('.selector').style.display === "block" : document.querySelector('.selector').style.display === "none"
+}
 
 inputPackageRef.addEventListener("click", () => {
     if (selectOptionsRef.style.display === "none") {
@@ -94,54 +125,100 @@ inputPackageRef.addEventListener("click", () => {
 })
 
 document.querySelector('.select_option-basic').addEventListener('click', () => {
-    const spans = document.querySelectorAll('.calculator_package-line span')
-    spans[1].textContent = packageOptions[0].name;
-    spans[2].textContent = packageOptions[0].price;
+    const spans = document.querySelectorAll('.calculator_package-line span');
+    packageOptions.filter((option) => {
+        if (option.name === 'Basic') {
+            spans[1].textContent = option.name;
+            spans[2].textContent = option.price;
+            option.selected = true
+        }
+        calculateTotal()
+    })
+    //reorganize
     document.querySelector('.calculator_package-line').style.visibility === 'hidden' ? (
         document.querySelector('.calculator_package-line').style.visibility = 'visible'
     ) : (
         document.querySelector('.calculator_package-line').style.visibility = 'hidden'
     )
+    calculateTotal()
 })
 
 document.querySelector('.select_option-professional').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
-    spans[1].textContent = packageOptions[1].name;
-    spans[2].textContent = packageOptions[1].price;
+    packageOptions.filter((option) => {
+        if (option.name === 'Professional') {
+            spans[1].textContent = option.name;
+            spans[2].textContent = option.price;
+            option.selected = true
+        }
+
+    })
+    //reorganize
     document.querySelector('.calculator_package-line').style.visibility === 'hidden' ? (
         document.querySelector('.calculator_package-line').style.visibility = 'visible'
     ) : (
         document.querySelector('.calculator_package-line').style.visibility = 'hidden'
     )
+    calculateTotal()
 });
 
 document.querySelector('.select_option-premium').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
-    spans[1].textContent = packageOptions[2].name;
-    spans[2].textContent = packageOptions[2].price;
+    packageOptions.filter((option) => {
+        if (option.name === 'Premium') {
+            spans[1].textContent = option.name;
+            spans[2].textContent = option.price;
+            option.selected = true;
+        }
+
+    })
+    //reorganize
     document.querySelector('.calculator_package-line').style.visibility === 'hidden' ? (
         document.querySelector('.calculator_package-line').style.visibility = 'visible'
     ) : (
         document.querySelector('.calculator_package-line').style.visibility = 'hidden'
     )
+    calculateTotal()
 });
 
-function toogleDisplay(selector) {
-    document.querySelector('.selector').style.display === "none" ? document.querySelector('.selector').style.display === "block" : document.querySelector('.selector').style.display === "none"
-}
+
 
 document.querySelectorAll('.checkbox')[0].addEventListener('click', () => {
-    document.querySelectorAll('.checkbox')[0].checked === true ? document.querySelector('.calculator_accounting-line').style.visibility = 'visible' : document.querySelector('.calculator_accounting-line').style.visibility = 'hidden';
+    if (document.querySelectorAll('.checkbox')[0].checked) {
+        document.querySelector('.calculator_accounting-line').style.visibility = 'visible'
+        packageOptions.filter((option) => {
+            if (option.name === 'Accounting') {
+                option.selected = true;
+            }
+        })
+    } else {
+        document.querySelector('.calculator_accounting-line').style.visibility = 'hidden';
+        packageOptions.filter((option) => {
+            if (option.name === 'Accounting') {
+                option.selected = false
+            }
+        })
+    }
+
+    calculateTotal()
 })
 
 document.querySelectorAll('.checkbox')[1].addEventListener('click', () => {
     if (document.querySelectorAll('.checkbox')[1].checked === true) {
         document.querySelector('.calculator_terminal-line').style.visibility = 'visible'
-        document.querySelector('.total_line').style.visibility = 'visible'
+        packageOptions.filter((option) => {
+            if (option.name === 'Terminal') {
+                option.selected = true;
+            }
+        })
+        console.log(packageOptions);
     } else {
         document.querySelector('.calculator_terminal-line').style.visibility = 'hidden';
+        packageOptions.filter((option) => {
+            if (option.name === 'Terminal') {
+                option.selected = false;
+            }
+        })
     }
+    calculateTotal()
 })
-
-
-document.querySelector('.total_line').style.visibility = 'hidden'
