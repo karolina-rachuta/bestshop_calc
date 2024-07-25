@@ -38,63 +38,32 @@ html, body {
     gap: 1rem;
 }
 
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column{}
-
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input{
+.calculator_inputbox{
     border: 1px solid blue;
     border-radius: 10px;
 }
 
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input input{
+.calculator_inputbox input{
     background-color: transparent;
     border: none;
     width: 100%;
 }
 
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input input::-webkit-inner-spin-button{
+.calculator_inputbox input::-webkit-inner-spin-button{
  -webkit-appearance: none;
   margin: 0;
 }
 
-/* .calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_input input[type=number] {
- -moz-appearance: textfield;
-} */
-
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select{}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select .select_options{
+.select_options{
     display: none
 }
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select .select_options .select_option{}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_select .input_package{
+
+.left-colmun {
     cursor: pointer;
 }
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .checkbox_box{
-    cursor: pointer;
-}
-
-
-
-
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_products-line{
+.right-column {
     visibility: hidden;
 }
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_orders-line{
-    visibility: hidden;
-}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_package-line{
-    visibility: hidden;
-}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_accounting-line{
-    visibility: hidden;
-}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_terminal-line{
-    visibility: hidden;
-}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .calculator_line span{}
-.calculator .calculator_container .calculator_box .calculator_columns .calculator_column .total_line{
-    visibility: hidden;
-}
-
 
 
 
