@@ -115,7 +115,7 @@ inputOrdersQuantityRef.addEventListener("change", () => {
 })
 
 function toogleDisplay(selector) {
-    document.querySelector('.selector').style.display === "none" ? document.querySelector('.selector').style.display === "block" : document.querySelector('.selector').style.display === "none"
+    document.querySelector('.selector').style.visibility === "hidden" ? document.querySelector('.selector').style.visibility === "visible" : document.querySelector('.selector').style.visibility === "hidden"
 }
 
 inputPackageRef.addEventListener("click", () => {
@@ -126,58 +126,70 @@ inputPackageRef.addEventListener("click", () => {
 
 document.querySelector('.select_option-basic').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
-    packageOptions.filter((option) => {
-        if (option.name === 'Basic') {
-            spans[1].textContent = option.name;
-            spans[2].textContent = option.price;
-            option.selected = true
-        }
-        calculateTotal()
-    })
-    //reorganize
-    document.querySelector('.calculator_package-line').style.visibility === 'hidden' ? (
-        document.querySelector('.calculator_package-line').style.visibility = 'visible'
-    ) : (
-        document.querySelector('.calculator_package-line').style.visibility = 'hidden'
-    )
+    if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
+        document.querySelector('.calculator_package-line').style.visibility = 'hidden';
+        packageOptions.filter((option) => {
+            if (option.name === 'Basic') {
+                option.selected = false
+            }
+        })
+    } else {
+        packageOptions.filter((option) => {
+            document.querySelector('.calculator_package-line').style.visibility = 'visible';
+            if (option.name === 'Basic') {
+                spans[1].textContent = option.name;
+                spans[2].textContent = `$${option.total}`;
+                option.selected = true
+            }
+        })
+
+    }
     calculateTotal()
 })
 
 document.querySelector('.select_option-professional').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
-    packageOptions.filter((option) => {
-        if (option.name === 'Professional') {
-            spans[1].textContent = option.name;
-            spans[2].textContent = option.price;
-            option.selected = true
-        }
 
-    })
-    //reorganize
-    document.querySelector('.calculator_package-line').style.visibility === 'hidden' ? (
-        document.querySelector('.calculator_package-line').style.visibility = 'visible'
-    ) : (
+    if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
         document.querySelector('.calculator_package-line').style.visibility = 'hidden'
-    )
+        packageOptions.filter((option) => {
+            if (option.name === 'Professional') {
+                option.selected = false;
+            }
+        })
+    } else {
+        document.querySelector('.calculator_package-line').style.visibility = 'visible';
+        packageOptions.filter((option) => {
+            if (option.name === 'Professional') {
+                spans[1].textContent = option.name;
+                spans[2].textContent = `$${option.total}`;
+                option.selected = true
+            }
+        })
+    }
     calculateTotal()
 });
 
 document.querySelector('.select_option-premium').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
-    packageOptions.filter((option) => {
-        if (option.name === 'Premium') {
-            spans[1].textContent = option.name;
-            spans[2].textContent = option.price;
-            option.selected = true;
-        }
 
-    })
-    //reorganize
-    document.querySelector('.calculator_package-line').style.visibility === 'hidden' ? (
+    if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
+        document.querySelector('.calculator_package-line').style.visibility = 'hidden';
+        packageOptions.filter((option) => {
+            if (option.name === 'Premium') {
+                option.selected = false;
+            }
+        })
+    } else {
         document.querySelector('.calculator_package-line').style.visibility = 'visible'
-    ) : (
-        document.querySelector('.calculator_package-line').style.visibility = 'hidden'
-    )
+        packageOptions.filter((option) => {
+            if (option.name === 'Premium') {
+                spans[1].textContent = option.name;
+                spans[2].textContent = `$${option.total}`;
+                option.selected = true;
+            }
+        })
+    }
     calculateTotal()
 });
 
@@ -211,7 +223,6 @@ document.querySelectorAll('.checkbox')[1].addEventListener('click', () => {
                 option.selected = true;
             }
         })
-        console.log(packageOptions);
     } else {
         document.querySelector('.calculator_terminal-line').style.visibility = 'hidden';
         packageOptions.filter((option) => {
