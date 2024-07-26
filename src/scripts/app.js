@@ -55,25 +55,37 @@ const packageOptions = [{
     },
 ]
 const calculateTotal = () => {
-    if (packageOptions.filter((option) => option.selected)) {
-        const total = packageOptions.filter((option) => option.selected).reduce((acc, curr) => acc + (curr.total instanceof Function ? curr.total() : curr.total), 0)
-        document.querySelector('.total_line').style.visibility = 'visible';
-        document.querySelector('.total_line').textContent = total
-    } else {
+    const selectedOptions = packageOptions.filter((option) => option.selected)
+    if (selectedOptions.length === 0) {
         document.querySelector('.total_line').style.visibility = 'hidden';
+    } else {
+        if ((packageOptions.filter((option) => option.selected))) {
+            const total = packageOptions.filter((option) => option.selected).reduce((acc, curr) => acc + (curr.total instanceof Function ? curr.total() : curr.total), 0)
+            document.querySelector('.total_line').style.visibility = 'visible';
+            document.querySelector('.total_line').textContent = `$${total}`
+        }
     }
+}
+let inputText;
+let result;
+const filteringThroughPackageOptions = (selector, name) => {
+    inputText = selector.value;
+    packageOptions.filter((option) => {
+        if (option.name === name) {
+            option.quanity = inputText
+            result = `$${option.total()}`
+            option.selected = true
+            return (
+                inputText,
+                result
+            )
+        }
+        return null
+    })
 }
 
 inputProductsQuantityRef.addEventListener("change", () => {
-    const inputText = inputProductsQuantityRef.value;
-    let result;
-    packageOptions.filter((option) => {
-        if (option.name === 'products') {
-            option.quanity = inputText
-            result = option.total()
-            option.selected = true
-        }
-    })
+    filteringThroughPackageOptions(inputProductsQuantityRef, 'products');
     numberProductLineRef.textContent = inputText;
     productLineResultRef.textContent = result;
     productLineRef.style.visibility = "visible"
@@ -90,16 +102,9 @@ inputProductsQuantityRef.addEventListener("change", () => {
 })
 
 inputOrdersQuantityRef.addEventListener("change", () => {
+    filteringThroughPackageOptions(inputOrdersQuantityRef, 'orders')
     ordersLineRef.style.visibility = "visible";
-    const inputText = inputOrdersQuantityRef.value;
-    let result;
-    packageOptions.filter((option) => {
-        if (option.name === 'orders') {
-            option.quanity = inputText
-            result = option.total()
-            option.selected = true
-        }
-    })
+    
     numberOrderLineRef.textContent = inputText;
     orderLineResultRef.textContent = result;
 
@@ -124,22 +129,34 @@ inputPackageRef.addEventListener("click", () => {
     } else selectOptionsRef.style.display = "none"
 })
 
+const resetBasicProfessionalPremium = () => {
+    packageOptions.forEach(option => {
+        if (option.name === 'Basic' || option.name === 'Professional' || option.name === 'Premium') {
+            option.selected = false;
+        }
+    });
+}
+
 document.querySelector('.select_option-basic').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
+    resetBasicProfessionalPremium();
     if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
         document.querySelector('.calculator_package-line').style.visibility = 'hidden';
-        packageOptions.filter((option) => {
-            if (option.name === 'Basic') {
-                option.selected = false
-            }
-        })
+        resetBasicProfessionalPremium();
     } else {
+        document.querySelector('.calculator_package-line').style.visibility = 'visible';
+        packageOptions.forEach(option => {
+            if (option.name === 'Basic' || option.name === 'Professional' || option.name === 'Premium') {
+                option.selected = false;
+            }
+        });
+
         packageOptions.filter((option) => {
-            document.querySelector('.calculator_package-line').style.visibility = 'visible';
             if (option.name === 'Basic') {
                 spans[1].textContent = option.name;
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true
+                //and premium and professional false
             }
         })
 
@@ -149,6 +166,7 @@ document.querySelector('.select_option-basic').addEventListener('click', () => {
 
 document.querySelector('.select_option-professional').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
+    resetBasicProfessionalPremium();
 
     if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
         document.querySelector('.calculator_package-line').style.visibility = 'hidden'
@@ -164,6 +182,7 @@ document.querySelector('.select_option-professional').addEventListener('click', 
                 spans[1].textContent = option.name;
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true
+                //ustawic false dla basic i premium
             }
         })
     }
@@ -172,7 +191,7 @@ document.querySelector('.select_option-professional').addEventListener('click', 
 
 document.querySelector('.select_option-premium').addEventListener('click', () => {
     const spans = document.querySelectorAll('.calculator_package-line span');
-
+    resetBasicProfessionalPremium();
     if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
         document.querySelector('.calculator_package-line').style.visibility = 'hidden';
         packageOptions.filter((option) => {
@@ -187,6 +206,7 @@ document.querySelector('.select_option-premium').addEventListener('click', () =>
                 spans[1].textContent = option.name;
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true;
+                //ustawic false dla basic i professional
             }
         })
     }
@@ -216,7 +236,7 @@ document.querySelectorAll('.checkbox')[0].addEventListener('click', () => {
 })
 
 document.querySelectorAll('.checkbox')[1].addEventListener('click', () => {
-    if (document.querySelectorAll('.checkbox')[1].checked === true) {
+    if (document.querySelectorAll('.checkbox')[1].checked) {
         document.querySelector('.calculator_terminal-line').style.visibility = 'visible'
         packageOptions.filter((option) => {
             if (option.name === 'Terminal') {
