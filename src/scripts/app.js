@@ -123,79 +123,35 @@ const resetBasicProfessionalPremium = () => {
     });
 }
 
-document.querySelector('.select_option-basic').addEventListener('click', () => {
-    const spans = document.querySelectorAll('.calculator_package-line span');
-    resetBasicProfessionalPremium();
-    if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
-        document.querySelector('.calculator_package-line').style.visibility = 'hidden';
+const createPackagesResultFromList = (optionLeftSelector, name) => {
+    document.querySelector(optionLeftSelector).addEventListener('click', () => {
+        const spans = document.querySelectorAll('.calculator_package-line span');
         resetBasicProfessionalPremium();
-    } else {
-        document.querySelector('.calculator_package-line').style.visibility = 'visible';
-        packageOptions.forEach(option => {
-            if (option.name === 'Basic' || option.name === 'Professional' || option.name === 'Premium') {
-                option.selected = false;
-            }
-        });
+        if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
+            document.querySelector('.calculator_package-line').style.visibility = 'hidden'
+            packageOptions.filter((option) => {
+                if (option.name === name) {
+                    option.selected = false;
+                }
+            })
+        } else {
+            document.querySelector('.calculator_package-line').style.visibility = 'visible';
+            packageOptions.filter((option) => {
+                if (option.name === name) {
+                    spans[1].textContent = option.name;
+                    spans[2].textContent = `$${option.total}`;
+                    option.selected = true
+                }
+            })
+        }
+        calculateTotal()
+    })
 
-        packageOptions.filter((option) => {
-            if (option.name === 'Basic') {
-                spans[1].textContent = option.name;
-                spans[2].textContent = `$${option.total}`;
-                option.selected = true
-            }
-        })
+}
 
-    }
-    calculateTotal()
-})
-
-document.querySelector('.select_option-professional').addEventListener('click', () => {
-    const spans = document.querySelectorAll('.calculator_package-line span');
-    resetBasicProfessionalPremium();
-
-    if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
-        document.querySelector('.calculator_package-line').style.visibility = 'hidden'
-        packageOptions.filter((option) => {
-            if (option.name === 'Professional') {
-                option.selected = false;
-            }
-        })
-    } else {
-        document.querySelector('.calculator_package-line').style.visibility = 'visible';
-        packageOptions.filter((option) => {
-            if (option.name === 'Professional') {
-                spans[1].textContent = option.name;
-                spans[2].textContent = `$${option.total}`;
-                option.selected = true
-            }
-        })
-    }
-    calculateTotal()
-});
-
-document.querySelector('.select_option-premium').addEventListener('click', () => {
-    const spans = document.querySelectorAll('.calculator_package-line span');
-    resetBasicProfessionalPremium();
-    if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
-        document.querySelector('.calculator_package-line').style.visibility = 'hidden';
-        packageOptions.filter((option) => {
-            if (option.name === 'Premium') {
-                option.selected = false;
-            }
-        })
-    } else {
-        document.querySelector('.calculator_package-line').style.visibility = 'visible'
-        packageOptions.filter((option) => {
-            if (option.name === 'Premium') {
-                spans[1].textContent = option.name;
-                spans[2].textContent = `$${option.total}`;
-                option.selected = true;
-                //ustawic false dla basic i professional
-            }
-        })
-    }
-    calculateTotal()
-});
+createPackagesResultFromList('.select_option-basic', 'Basic');
+createPackagesResultFromList('.select_option-professional', 'Professional');
+createPackagesResultFromList('.select_option-premium', 'Premium');
 
 
 
