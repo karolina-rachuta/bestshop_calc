@@ -2,6 +2,8 @@ const inputProductsQuantityRef = document.querySelector('.input_products');
 const inputOrdersQuantityRef = document.querySelector('.input_orders');
 const productLineRef = document.querySelector('.calculator_products-line');
 const ordersLineRef = document.querySelector('.calculator_orders-line');
+const inputPackageRef = document.querySelector('.input_package');
+const selectOptionsRef = document.querySelector('.select_options');
 
 const packageOptions = [{
         name: 'products',
@@ -118,7 +120,7 @@ function resetBasicProfessionalPremium() {
     });
 }
 
-function createPackagesResultFromList (optionLeftSelector, name) {
+function createPackagesResultFromList(optionLeftSelector, name) {
     document.querySelector(optionLeftSelector).addEventListener('click', () => {
         const spans = document.querySelectorAll('.calculator_package-line span');
         resetBasicProfessionalPremium();
@@ -144,7 +146,7 @@ function createPackagesResultFromList (optionLeftSelector, name) {
 
 }
 
-function createResultsForCheckbox (checkboxNumber, name, rightSelector) {
+function createResultsForCheckbox(checkboxNumber, name, rightSelector) {
     document.querySelectorAll('.checkbox')[checkboxNumber].addEventListener('click', () => {
         if (document.querySelectorAll('.checkbox')[checkboxNumber].checked) {
             document.querySelector(rightSelector).style.visibility = 'visible'
