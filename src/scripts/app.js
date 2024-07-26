@@ -66,58 +66,44 @@ const calculateTotal = () => {
         }
     }
 }
-let inputText;
-let result;
-const filteringThroughPackageOptions = (selector, name) => {
-    inputText = selector.value;
-    packageOptions.filter((option) => {
-        if (option.name === name) {
-            option.quanity = inputText
-            result = `$${option.total()}`
-            option.selected = true
-            return (
-                inputText,
-                result
-            )
+
+
+const createInputResults = (leftSelector, name, rightSelector) => {
+    let inputText;
+    let result;
+    leftSelector.addEventListener("change", () => {
+        inputText = leftSelector.value;
+        packageOptions.filter((option) => {
+            if (option.name === name) {
+                option.quanity = inputText
+                result = `$${option.total()}`
+                option.selected = true
+                return (
+                    inputText,
+                    result
+                )
+            }
+            return null
+        })
+
+        rightSelector.style.visibility = "visible";
+        rightSelector.querySelector('span:nth-of-type(2)').textContent = inputText;
+        rightSelector.querySelector('span:nth-of-type(3)').textContent = result;
+
+        if (!leftSelector.value) {
+            rightSelector.style.visibility = "hidden";
+            packageOptions.filter((option) => {
+                if (option.name === 'name') {
+                    option.selected = false
+                }
+            })
         }
-        return null
+        calculateTotal();
     })
 }
 
-inputProductsQuantityRef.addEventListener("change", () => {
-    filteringThroughPackageOptions(inputProductsQuantityRef, 'products');
-    numberProductLineRef.textContent = inputText;
-    productLineResultRef.textContent = result;
-    productLineRef.style.visibility = "visible"
-
-    if (!inputProductsQuantityRef.value) {
-        productLineRef.style.visibility = "hidden"
-        packageOptions.filter((option) => {
-            if (option.name === 'products') {
-                option.selected = false
-            }
-        })
-    }
-    calculateTotal()
-})
-
-inputOrdersQuantityRef.addEventListener("change", () => {
-    filteringThroughPackageOptions(inputOrdersQuantityRef, 'orders')
-    ordersLineRef.style.visibility = "visible";
-    
-    numberOrderLineRef.textContent = inputText;
-    orderLineResultRef.textContent = result;
-
-    if (!inputOrdersQuantityRef.value) {
-        ordersLineRef.style.visibility = "hidden";
-        packageOptions.filter((option) => {
-            if (option.name === 'orders') {
-                option.selected = false
-            }
-        })
-    }
-    calculateTotal();
-})
+createInputResults(inputProductsQuantityRef, 'products', productLineRef);
+createInputResults(inputOrdersQuantityRef, 'orders', ordersLineRef);
 
 function toogleDisplay(selector) {
     document.querySelector('.selector').style.visibility === "hidden" ? document.querySelector('.selector').style.visibility === "visible" : document.querySelector('.selector').style.visibility === "hidden"
@@ -156,7 +142,6 @@ document.querySelector('.select_option-basic').addEventListener('click', () => {
                 spans[1].textContent = option.name;
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true
-                //and premium and professional false
             }
         })
 
@@ -182,7 +167,6 @@ document.querySelector('.select_option-professional').addEventListener('click', 
                 spans[1].textContent = option.name;
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true
-                //ustawic false dla basic i premium
             }
         })
     }
