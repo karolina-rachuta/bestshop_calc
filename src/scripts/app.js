@@ -1,14 +1,7 @@
 const inputProductsQuantityRef = document.querySelector('.input_products');
 const inputOrdersQuantityRef = document.querySelector('.input_orders');
-const inputPackageRef = document.querySelector('.input_package');
-const selectOptionsRef = document.querySelector('.select_options');
-
 const productLineRef = document.querySelector('.calculator_products-line');
-const numberProductLineRef = document.querySelector('.product-line_number');
-const productLineResultRef = document.querySelector('.product-line_result');
 const ordersLineRef = document.querySelector('.calculator_orders-line');
-const numberOrderLineRef = document.querySelector('.order-line_number');
-const orderLineResultRef = document.querySelector('.order-line_result');
 
 const packageOptions = [{
         name: 'products',
@@ -54,7 +47,16 @@ const packageOptions = [{
         selected: false
     },
 ]
-const calculateTotal = () => {
+
+createInputResults(inputProductsQuantityRef, 'products', productLineRef);
+createInputResults(inputOrdersQuantityRef, 'orders', ordersLineRef);
+createPackagesResultFromList('.select_option-basic', 'Basic');
+createPackagesResultFromList('.select_option-professional', 'Professional');
+createPackagesResultFromList('.select_option-premium', 'Premium');
+createResultsForCheckbox(0, 'Accounting', '.calculator_accounting-line')
+createResultsForCheckbox(1, 'Terminal', '.calculator_terminal-line')
+
+function calculateTotal() {
     const selectedOptions = packageOptions.filter((option) => option.selected)
     if (selectedOptions.length === 0) {
         document.querySelector('.total_line').style.visibility = 'hidden';
@@ -62,13 +64,13 @@ const calculateTotal = () => {
         if ((packageOptions.filter((option) => option.selected))) {
             const total = packageOptions.filter((option) => option.selected).reduce((acc, curr) => acc + (curr.total instanceof Function ? curr.total() : curr.total), 0)
             document.querySelector('.total_line').style.visibility = 'visible';
-            document.querySelector('.total_line').textContent = `$${total}`
+            document.querySelector('.total_line').textContent = `Total: $${total}`
         }
     }
 }
 
 
-const createInputResults = (leftSelector, name, rightSelector) => {
+function createInputResults(leftSelector, name, rightSelector) {
     let inputText;
     let result;
     leftSelector.addEventListener("change", () => {
@@ -102,20 +104,13 @@ const createInputResults = (leftSelector, name, rightSelector) => {
     })
 }
 
-createInputResults(inputProductsQuantityRef, 'products', productLineRef);
-createInputResults(inputOrdersQuantityRef, 'orders', ordersLineRef);
-
-function toogleDisplay(selector) {
-    document.querySelector('.selector').style.visibility === "hidden" ? document.querySelector('.selector').style.visibility === "visible" : document.querySelector('.selector').style.visibility === "hidden"
-}
-
 inputPackageRef.addEventListener("click", () => {
     if (selectOptionsRef.style.display === "none") {
         selectOptionsRef.style.display = "block"
     } else selectOptionsRef.style.display = "none"
 })
 
-const resetBasicProfessionalPremium = () => {
+function resetBasicProfessionalPremium() {
     packageOptions.forEach(option => {
         if (option.name === 'Basic' || option.name === 'Professional' || option.name === 'Premium') {
             option.selected = false;
@@ -123,7 +118,7 @@ const resetBasicProfessionalPremium = () => {
     });
 }
 
-const createPackagesResultFromList = (optionLeftSelector, name) => {
+function createPackagesResultFromList (optionLeftSelector, name) {
     document.querySelector(optionLeftSelector).addEventListener('click', () => {
         const spans = document.querySelectorAll('.calculator_package-line span');
         resetBasicProfessionalPremium();
@@ -149,47 +144,23 @@ const createPackagesResultFromList = (optionLeftSelector, name) => {
 
 }
 
-createPackagesResultFromList('.select_option-basic', 'Basic');
-createPackagesResultFromList('.select_option-professional', 'Professional');
-createPackagesResultFromList('.select_option-premium', 'Premium');
-
-
-
-document.querySelectorAll('.checkbox')[0].addEventListener('click', () => {
-    if (document.querySelectorAll('.checkbox')[0].checked) {
-        document.querySelector('.calculator_accounting-line').style.visibility = 'visible'
-        packageOptions.filter((option) => {
-            if (option.name === 'Accounting') {
-                option.selected = true;
-            }
-        })
-    } else {
-        document.querySelector('.calculator_accounting-line').style.visibility = 'hidden';
-        packageOptions.filter((option) => {
-            if (option.name === 'Accounting') {
-                option.selected = false
-            }
-        })
-    }
-
-    calculateTotal()
-})
-
-document.querySelectorAll('.checkbox')[1].addEventListener('click', () => {
-    if (document.querySelectorAll('.checkbox')[1].checked) {
-        document.querySelector('.calculator_terminal-line').style.visibility = 'visible'
-        packageOptions.filter((option) => {
-            if (option.name === 'Terminal') {
-                option.selected = true;
-            }
-        })
-    } else {
-        document.querySelector('.calculator_terminal-line').style.visibility = 'hidden';
-        packageOptions.filter((option) => {
-            if (option.name === 'Terminal') {
-                option.selected = false;
-            }
-        })
-    }
-    calculateTotal()
-})
+function createResultsForCheckbox (checkboxNumber, name, rightSelector) {
+    document.querySelectorAll('.checkbox')[checkboxNumber].addEventListener('click', () => {
+        if (document.querySelectorAll('.checkbox')[checkboxNumber].checked) {
+            document.querySelector(rightSelector).style.visibility = 'visible'
+            packageOptions.filter((option) => {
+                if (option.name === name) {
+                    option.selected = true;
+                }
+            })
+        } else {
+            document.querySelector(rightSelector).style.visibility = 'hidden';
+            packageOptions.filter((option) => {
+                if (option.name === name) {
+                    option.selected = false
+                }
+            })
+        }
+        calculateTotal()
+    })
+}
