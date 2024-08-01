@@ -3,7 +3,12 @@ const inputOrdersQuantityRef = document.querySelector('.input_orders');
 const productLineRef = document.querySelector('.calculator_products-line');
 const ordersLineRef = document.querySelector('.calculator_orders-line');
 const inputPackageRef = document.querySelector('.input_package');
+const paragraphInputPackageRef1 = document.querySelector('.input_package p');
+const paragraphInputPackageRef = inputPackageRef.firstElementChild;
 const selectOptionsRef = document.querySelector('.select_options');
+//const packageTextRef = document.querySelector('.package_text');
+//const arrowImgRef = inputPackageRef.querySelector('.img_arrow');
+//const arrowImgRef = document.querySelector(".img_arrow").setAttribute("style", "transform": "rotate(180deg)")
 
 const packageOptions = [{
         name: 'products',
@@ -25,7 +30,7 @@ const packageOptions = [{
     },
     {
         name: 'Basic',
-        total: 20,
+        total: 0,
         selected: false
     },
     {
@@ -66,7 +71,7 @@ function calculateTotal() {
         if ((packageOptions.filter((option) => option.selected))) {
             const total = packageOptions.filter((option) => option.selected).reduce((acc, curr) => acc + (curr.total instanceof Function ? curr.total() : curr.total), 0)
             document.querySelector('.total_line').style.visibility = 'visible';
-            document.querySelector('.total_line').textContent = `Total: $${total}`
+            document.querySelector('.total-sum').textContent = `$${total}`
         }
     }
 }
@@ -74,24 +79,27 @@ function calculateTotal() {
 
 function createInputResults(leftSelector, name, rightSelector) {
     let inputText;
+    let price;
     let result;
     leftSelector.addEventListener("change", () => {
         inputText = leftSelector.value;
         packageOptions.filter((option) => {
             if (option.name === name) {
                 option.quanity = inputText
+                price = option.price;
                 result = `$${option.total()}`
                 option.selected = true
                 return (
                     inputText,
-                    result
+                    result,
+                    price
                 )
             }
             return null
         })
 
         rightSelector.style.visibility = "visible";
-        rightSelector.querySelector('span:nth-of-type(2)').textContent = inputText;
+        rightSelector.querySelector('span:nth-of-type(2)').textContent = `${inputText} * ${price}`;
         rightSelector.querySelector('span:nth-of-type(3)').textContent = result;
 
         if (!leftSelector.value) {
@@ -107,13 +115,20 @@ function createInputResults(leftSelector, name, rightSelector) {
 }
 
 inputPackageRef.addEventListener("click", () => {
-    selectOptionsRef.style.display = selectOptionsRef.style.display === 'none' ? 'block' : 'none';
+    if (selectOptionsRef.style.display === 'none' || selectOptionsRef.style.display === '') {
+        selectOptionsRef.style.display = 'block';
+        arrowImgRef.classList.add('arrow_rotate');
+    } else {
+        selectOptionsRef.style.display = 'none';
+        arrowImgRef.classList.remove('arrow_rotate');
+    }
 })
 
 function resetBasicProfessionalPremium() {
     packageOptions.forEach(option => {
         if (option.name === 'Basic' || option.name === 'Professional' || option.name === 'Premium') {
             option.selected = false;
+            inputPackageRef.textContent = 'Choose package';
         }
     });
 }
@@ -128,10 +143,18 @@ function createPackagesResultFromList(optionLeftSelector, name) {
                 spans[1].textContent = option.name;
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true;
-                inputPackageRef.textContent = option.name;
+                inputPackageRef.firstChild.textContent = option.name;
+                //packageTextRef.textContent = option.name;
+                //console.log(packageTextRef)
+                // const arrowImg = document.createElement('img');
+                // arrowImg.src = "../../src/assets/Arrow_Down.svg"
+                // // arrowImg.classList.remove('img_arrow');
+                // arrowImg.alt = "Arrow";
+                // inputPackageRef.appendChild(arrowImg);
             }
         });
         selectOptionsRef.style.display = 'none';
+        //arrowImgRef.classList.remove('arrow_rotate');
         calculateTotal()
     })
 

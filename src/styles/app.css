@@ -40,11 +40,21 @@ body {
 .calculator .calculator_container .calculator_box .calculator_columns {
   display: flex;
   justify-content: center;
+  align-items: start;
   gap: 47px;
   width: 100%;
+  max-width: 1000px;
   height: 100%;
 }
 
+.calculator .calculator_container .calculator_box .calculator_column {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start; */
+  /* width: 100%; */
+  /* height: 100%; */
+}
 .calculator_inputbox,
 .calculator_select {
   width: 100%;
@@ -79,14 +89,25 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  position: relative;
 }
 
-.calculator_select .input_package img {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transform: rotate(180deg);
+.input_package::after {
+  content: "";
+  background-image: url("../assets/Arrow_Down.svg");
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+  display: block;
+  position: absolute;
+  right: 14px;
+  top: 11px;
 }
+/* 
+.input_package::after {
+  content: attr(data-rotate);
+  transform: rotate(180deg);
+} */
 
 .calculator_inputbox input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -122,11 +143,11 @@ body {
 }
 
 .checkbox_box label {
-  font-family: 'Open-Sans',sans-serif;
+  font-family: "Open-Sans", sans-serif;
   font-weight: normal;
   font-size: 12px;
   text-align: left;
-  color:#707070;
+  color: #707070;
   line-height: 1.41;
 }
 
@@ -134,24 +155,43 @@ body {
   cursor: pointer;
 }
 .right-column {
-  visibility: visible;
+  visibility: hidden;
   /* margin-left: 47px; */
   max-width: 380px;
   max-height: 31px;
   border-radius: 6px;
   box-shadow: 0px 3px 6px #00000029;
-  background-color: #55DFB4;
-  padding: 6px;
+  background-color: #55dfb4;
+  padding: 6px 15px;
   margin-bottom: 8px;
-  font-family: 'Open-Sans',sans-serif;
+  font-family: "Open-Sans", sans-serif;
   font-size: 14px;
+  line-height: 1.36;
   color: white;
   display: flex;
   justify-content: space-between;
 }
 
+.right-column:last-child {
+  background: #08A6E4;
+  max-width: 175px;
+  width: 100%;
+}
+
+
+.calculator-line span:last-child {
+font-weight: bold;
+}
 
 .calculator_column {
-width: 100%;
-height: 100%;
+  width: 100%;
+  height: 100%;
 }
+
+/* .arrow_rotate {
+  transform: rotate(180deg);
+}
+
+.img_arrow {
+  display: block;
+} */
