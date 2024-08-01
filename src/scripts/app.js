@@ -107,9 +107,7 @@ function createInputResults(leftSelector, name, rightSelector) {
 }
 
 inputPackageRef.addEventListener("click", () => {
-    if (selectOptionsRef.style.display === "none") {
-        selectOptionsRef.style.display = "block"
-    } else selectOptionsRef.style.display = "none"
+    selectOptionsRef.style.display = selectOptionsRef.style.display === 'none' ? 'block' : 'none';
 })
 
 function resetBasicProfessionalPremium() {
@@ -124,23 +122,16 @@ function createPackagesResultFromList(optionLeftSelector, name) {
     document.querySelector(optionLeftSelector).addEventListener('click', () => {
         const spans = document.querySelectorAll('.calculator_package-line span');
         resetBasicProfessionalPremium();
-        if (document.querySelector('.calculator_package-line').style.visibility === 'visible') {
-            document.querySelector('.calculator_package-line').style.visibility = 'hidden'
-            packageOptions.filter((option) => {
-                if (option.name === name) {
-                    option.selected = false;
-                }
-            })
-        } else {
-            document.querySelector('.calculator_package-line').style.visibility = 'visible';
-            packageOptions.filter((option) => {
-                if (option.name === name) {
-                    spans[1].textContent = option.name;
-                    spans[2].textContent = `$${option.total}`;
-                    option.selected = true
-                }
-            })
-        }
+        document.querySelector('.calculator_package-line').style.visibility = 'visible';
+        packageOptions.forEach(option => {
+            if (option.name === name) {
+                spans[1].textContent = option.name;
+                spans[2].textContent = `$${option.total}`;
+                option.selected = true;
+                inputPackageRef.textContent = option.name;
+            }
+        });
+        selectOptionsRef.style.display = 'none';
         calculateTotal()
     })
 
