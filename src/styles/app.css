@@ -41,27 +41,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: start;
-  gap: 47px;
+  gap: 100px;
   width: 100%;
   max-width: 1000px;
   height: 100%;
 }
 
-.calculator_column-right{
-display: flex;
-flex-direction: column;
-align-items: end;
-justify-content: start;
-width: 100%;
-}
-.calculator .calculator_container .calculator_box .calculator_column {
-  /* display: flex;
+.calculator_column-right {
+  display: flex;
   flex-direction: column;
+  align-items: end;
   justify-content: start;
-  align-items: start; */
-  /* width: 100%; */
-  /* height: 100%; */
+  width: 100%;
 }
+
 .calculator_inputbox,
 .calculator_select {
   width: 100%;
@@ -110,6 +103,7 @@ width: 100%;
   right: 14px;
   top: 11px;
 }
+
 /* 
 .input_package::after {
   content: attr(data-rotate);
@@ -179,14 +173,13 @@ width: 100%;
 }
 
 .right-column:last-child {
-  background: #08A6E4;
+  background: #08a6e4;
   max-width: 150px;
   width: 100%;
 }
 
-
 .calculator-line span:last-child {
-font-weight: bold;
+  font-weight: bold;
 }
 
 .calculator_column {
@@ -194,10 +187,42 @@ font-weight: bold;
   height: 100%;
 }
 
-/* .arrow_rotate {
-  transform: rotate(180deg);
+[type="checkbox"] {
+  opacity: 0;
 }
 
-.img_arrow {
-  display: block;
-} */
+[type="checkbox"] + label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  color: #707070;
+  font-size: 12px;
+  font-family: "Open-Sand", sans-serif;
+  margin-bottom: 20px;
+  line-height: 1.42;
+  padding-left: 10px;
+}
+
+[type="checkbox"] + label::before {
+  content: "";
+  position: absolute;
+  left: -23px;
+  top: -5px;
+  width: 24px;
+  height: 24px;
+  outline: 1px solid #95989a;
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+[type="checkbox"]:checked + label::after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 0px;
+  width: 15px;
+  height: 15px;
+  background-image: url("../assets/Checkmark.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
