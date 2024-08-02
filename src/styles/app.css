@@ -84,6 +84,7 @@ body {
   line-height: 1.38;
   text-align: left;
 }
+
 .calculator_select .input_package {
   display: flex;
   justify-content: space-between;
@@ -104,11 +105,16 @@ body {
   top: 11px;
 }
 
-/* 
-.input_package::after {
-  content: attr(data-rotate);
+.calculator_select.open .input_package::after {
   transform: rotate(180deg);
-} */
+  position: absolute;
+  right: 18px;
+  top: 8px;
+}
+
+.calculator_select.open .select_options {
+  display: block;
+}
 
 .calculator_inputbox input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -133,6 +139,7 @@ body {
   line-height: 1.38;
   color: #000000;
 }
+
 
 .select_options li:first-child {
   padding-top: 15px;

@@ -6,9 +6,6 @@ const inputPackageRef = document.querySelector('.input_package');
 const paragraphInputPackageRef1 = document.querySelector('.input_package p');
 const paragraphInputPackageRef = inputPackageRef.firstElementChild;
 const selectOptionsRef = document.querySelector('.select_options');
-//const packageTextRef = document.querySelector('.package_text');
-//const arrowImgRef = inputPackageRef.querySelector('.img_arrow');
-//const arrowImgRef = document.querySelector(".img_arrow").setAttribute("style", "transform": "rotate(180deg)")
 
 const packageOptions = [{
         name: 'products',
@@ -115,13 +112,8 @@ function createInputResults(leftSelector, name, rightSelector) {
 }
 
 inputPackageRef.addEventListener("click", () => {
-    if (selectOptionsRef.style.display === 'none' || selectOptionsRef.style.display === '') {
-        selectOptionsRef.style.display = 'block';
-        arrowImgRef.classList.add('arrow_rotate');
-    } else {
-        selectOptionsRef.style.display = 'none';
-        arrowImgRef.classList.remove('arrow_rotate');
-    }
+    const selectElement = document.querySelector('.calculator_select');
+    selectElement.classList.toggle('open');
 })
 
 function resetBasicProfessionalPremium() {
@@ -144,17 +136,10 @@ function createPackagesResultFromList(optionLeftSelector, name) {
                 spans[2].textContent = `$${option.total}`;
                 option.selected = true;
                 inputPackageRef.firstChild.textContent = option.name;
-                //packageTextRef.textContent = option.name;
-                //console.log(packageTextRef)
-                // const arrowImg = document.createElement('img');
-                // arrowImg.src = "../../src/assets/Arrow_Down.svg"
-                // // arrowImg.classList.remove('img_arrow');
-                // arrowImg.alt = "Arrow";
-                // inputPackageRef.appendChild(arrowImg);
             }
         });
-        selectOptionsRef.style.display = 'none';
-        //arrowImgRef.classList.remove('arrow_rotate');
+        const selectElement = document.querySelector('.calculator_select');
+        selectElement.classList.remove('open');
         calculateTotal()
     })
 
