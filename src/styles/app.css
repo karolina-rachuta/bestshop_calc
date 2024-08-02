@@ -225,4 +225,22 @@ body {
   background-image: url("../assets/Checkmark.svg");
   background-size: contain;
   background-repeat: no-repeat;
+  transform: scale(1);
+  opacity: 1;
+  transition: all 0.3s ease;
 }
+
+[type="checkbox"]:not(:checked) + label::after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 0px;
+  width: 15px;
+  height: 15px;
+  background-image: url("../assets/Checkmark.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: scale(0);
+  opacity: 0;
+}
+
