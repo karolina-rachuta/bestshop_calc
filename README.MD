@@ -12,10 +12,12 @@ It an app to calculate how much you pay in BestShop.
 - Go Live!
 
 ## Screenshots:
+- desktop:
 ![screenshot](./src/assets/desktop_start.png)
 
 ![screenshot](./src/assets/desktop_open.png)
 
 ![screenshot](./src/assets/desktop_filled.png)
 
+- mobile:
 ![screenshot](./src/assets/mobile_tablet_filled.png)
