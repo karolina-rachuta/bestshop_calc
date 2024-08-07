@@ -1,6 +1,9 @@
 # Best Shop Calculator
 It an app to calculate how much you pay in BestShop.
 
+## Live Demo:
+https://bestshop-calculator-js.netlify.app/
+
 ## Tech stack
 - HTML5
 - JavaScript
